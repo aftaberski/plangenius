@@ -8,7 +8,7 @@ class EventForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ('title', 'description', 'location', 'attendees_text_field', 'voting_options', 'start_date', 'end_date')
+        fields = ('title', 'description', 'location', 'attendees', 'voting_options', 'start_date', 'end_date')
         widgets = {
             'start_date': DateInput(),
             'end_date': DateInput(),
