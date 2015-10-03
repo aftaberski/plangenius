@@ -9,5 +9,7 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^sign-up/$', views.sign_up, name='sign-up')
+    url(r'^sign-up/$', views.sign_up, name='sign-up'),
+    url(r'^login/$', views.user_login, name='login'),
+    url(r'^$', views.index, name='index'),
 ]
