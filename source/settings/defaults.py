@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USER_MODEL_EMAIL_FIELD= 'email'
 
 # Application definition
 
@@ -40,8 +42,9 @@ DJANGO_APPS = (
 )
 
 THIRD_PARTY_APPS = (
-    'shell_plus',
     'django_extensions',
+    'filer',
+    'shell_plus',
 )
 
 LOCAL_APPS = (
@@ -61,7 +64,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'plangenius.urls'
+ROOT_URLCONF = 'settings.urls'
 
 TEMPLATES = [
     {
@@ -79,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'plangenius.wsgi.application'
+WSGI_APPLICATION = 'settings.wsgi.application'
 
 
 # Database
