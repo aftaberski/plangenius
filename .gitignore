@@ -1,9 +1,0 @@
-*.pyc
-.DS_Store
-
-# Temp Directory
-.tmp/*
-!.tmp/.gitkeep
-
-# Django
-source/settings/local.py
