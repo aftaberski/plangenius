@@ -4,20 +4,12 @@ from django.contrib.auth.models import User
 
 from filer.fields.image import FilerImageField
 
-# class Event(models.Model):
-#   organizer
-#   location
-#   attendees
-#   voting_options
-#   start_date
-#   end_date
-
 class VotingOption(models.Model):
 
   CATEGORY_CHOICES = (
       ('Budget', 'Budget'),
       ('Date', 'Date'),
-      ( 'Meal','Meal'),
+      ('Meal','Meal'),
       ('Accommodation', 'Accommodation'),
       ('Activity', 'Activity'),
   )
@@ -28,5 +20,27 @@ class VotingOption(models.Model):
   voters = []
   image = FilerImageField(null=True, blank=True, on_delete=models.SET_NULL, related_name='voting_option_image')
 
+  def __unicode__(self):
+    return self.title
+
+class Event(models.Model):
+  organizer = models.ForeignKey(User)
+  title = models.CharField(max_length=100)
+  description = models.TextField(max_length=255)
+  location = models.CharField(max_length=100)
+  # TO DO: make users
+  attendees_text_field = models.TextField()
+  attendees = []
+  voting_options = models.ManyToManyField(VotingOption)
+  start_date = models.DateField()
+  end_date = models.DateField()
+  slug = models.SlugField(null=True, blank=True)
+
+  def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        self.attendees = self.attendees_text_field.split(',')
+        super(Event, self).save(*args, **kwargs)
+
+  # on save - send email/texts
   def __unicode__(self):
     return self.title
