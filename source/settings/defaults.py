@@ -130,8 +130,31 @@ MEDIA_ROOT = get_path(BASE_DIR, "../", '.tmp', 'media')
 STATIC_URL = '/static/'
 STATIC_ROOT = get_path(BASE_DIR, "../", '.tmp', 'static')
 STATICFILES_DIRS = (get_path(BASE_DIR, "../public"),)
-TEMPLATE_DIRS = (get_path(BASE_DIR, "templates"),)
 
+# DIRS = ("../templates",)
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            "../templates"
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 FILER_URL = MEDIA_URL
 FILER_DEBUG = True
 THUMBNAIL_PROCESSORS = (
