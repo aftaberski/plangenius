@@ -2,7 +2,23 @@
 <head>
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}sass/application.scss">
   <title>PlanGenius</title>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}javascripts/jquery.touchSwipe.min.js"></script>
+  <script>
+    $(function() {
+      $(".voting-option").swipe( {
+        //Generic swipe handler for all directions
+        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+          if (direction =="right"){
+            $(this).addClass('yes');
+          }
+          else if (direction=="left"){
+            $(this).addClass('no');
+          }
+        }
+      });
+    });
+  </script>
 </head>
 <body>
   <nav>
@@ -10,13 +26,14 @@
   <img class="logo" src="{{STATIC_URL}}images/logo-icon-small.jpg">
 </nav>
 <div class="wrap">
-  <h1><strong>{{type}}</strong></h1>
-  <h1>{{ event.title }}</h1>
+  <h1 class="event-title">{{ event.title }}</h1>
+  <h1 class="type"><strong>{{type}}</strong></h1>
   {% for item in items %}
     <div class="voting-option">
-      <h3>{{ item.title }}</h3>
-      <p>{{ item.description }}</p>
-      <img src="{{item.image.url}}">
+      <div class="overlay yes" style="background: rgba(255,255,255, 0.3) url({{STATIC_URL}}images/yep.png) center no-repeat;background-size:200px 200px;"></div>
+      <div class="overlay no" style="background: rgba(255,255,255, 0.3) url({{STATIC_URL}}images/nope.png) center no-repeat;background-size:200px 100px;"></div>
+      <div class="option-image" style="background-image:url({{item.image.url}});background-size:cover;position:relative;"><h3 class="item-option-title">{{ item.title }}</h3></div>
+      <div class="description">{{ item.description|safe }}</div>
     </div>
   {% endfor %}
 </div>

@@ -24,4 +24,65 @@ nav .logo {
 }
 .wrap {
   margin: 10px 50px 100px 50px;
+  text-align: center;
+}
+
+h1.type {
+  text-transform: uppercase;
+  font-family: 'futura';
+  margin-bottom: 50px;
+}
+
+h1.event-title {
+  font-family: 'futura';
+}
+
+.option-image {
+  width: 100%;
+  height: 300px;
+  margin-bottom: 50px;
+}
+
+h3.item-option-title {
+  border: solid 1px black;
+  position: absolute;
+  bottom: -40px;
+  padding: 10px 30px;
+  background-color:#8DC6AC;
+  text-transform: uppercase;
+  color: white;
+  font-family: 'futura';
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.voting-option {
+  border: solid 1px black;
+  margin-bottom: 50px;
+  width: 100%;
+  position:relative;
+}
+.voting-option.yes .overlay.yes {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left:0;
+  z-index: 2;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.voting-option.no .overlay.no {
+  position: absolute;
+  width: 100%;
+  height: 105%;
+  z-index: 2;
+  background-repeat: no-repeat;
+  background-position: ;
+}
+
+.description {
+  padding: 0 10px 10px 10px;
+  font-family: 'futura';
 }
