@@ -36,6 +36,7 @@
       <div class="description">{{ item.description|safe }}</div>
     </div>
   {% endfor %}
+  <a class="submit-votes" href="{% url 'event_detail' event.slug %}">Submit</a>
 </div>
 </body>
 </html>

@@ -86,3 +86,37 @@ h3.item-option-title {
   padding: 0 10px 10px 10px;
   font-family: 'futura';
 }
+
+a.type-link {
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  font-family:'futura';
+  text-transform: uppercase;
+  padding: 40px;
+  background-color: #8DC6AC;
+  color: white;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+a.type-link:active {
+  background-color: #ED4E1E;
+}
+
+a.submit-votes {
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  font-family:'futura';
+  text-transform: uppercase;
+  padding: 20px;
+  background-color: #8DC6AC;
+  color: white;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+a.submit-votes:active {
+  background-color: #ED4E1E;
+}

@@ -1,7 +1,37 @@
-
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}sass/application.scss">
+  <title>PlanGenius</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}javascripts/jquery.touchSwipe.min.js"></script>
+  <script>
+    $(function() {
+      $(".voting-option").swipe( {
+        //Generic swipe handler for all directions
+        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+          if (direction =="right"){
+            $(this).addClass('yes');
+          }
+          else if (direction=="left"){
+            $(this).addClass('no');
+          }
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <nav>
+  <img src="{{ STATIC_URL }}images/hamburger.png" class="hamburger">
+  <img class="logo" src="{{STATIC_URL}}images/logo-icon-small.jpg">
+</nav>
+<div class="wrap">
 {% block content %}
-  <h1>{{ event.title }}</h1>
-  <a href="{% url 'meal_category' event.slug %}">Meals</a>
-  <a href="{% url 'activity_category' event.slug %}">Activities</a>
-  <a href="{% url 'accommodation_category' event.slug %}">Accommodations</a>
+  <h1 class="event-title">{{ event.title }}</h1>
+  <a class="type-link" href="{% url 'meal_category' event.slug %}">Meals</a>
+  <a class="type-link" href="{% url 'activity_category' event.slug %}">Activities</a>
+  <a class="type-link" href="{% url 'accommodation_category' event.slug %}">Accommodations</a>
 {% endblock content %}
+</div>
+</body>
+</html>
