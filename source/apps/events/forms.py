@@ -1,8 +1,11 @@
-from .models import Event
+from .models import Event, VotingOption
 from django import forms
 
 class DateInput(forms.DateInput):
     input_type = 'date'
+
+class FileInput(forms.FileInput):
+    input_type = 'file'
 
 class EventForm(forms.ModelForm):
 
@@ -14,3 +17,11 @@ class EventForm(forms.ModelForm):
             'end_date': DateInput(),
         }
 
+class VotingOptionForm(forms.ModelForm):
+
+    class Meta:
+        model = VotingOption
+        fields = ('title', 'category', 'description', 'image')
+        widgets = {
+            'image': FileInput(),
+        }

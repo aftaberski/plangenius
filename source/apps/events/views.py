@@ -1,8 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
-from django.shortcuts import render_to_response, render
-from apps.events.forms import EventForm
+from django.shortcuts import render_to_response, render, redirect
+from apps.events.forms import EventForm, VotingOptionForm
 from .models import Event
 
 
@@ -102,3 +102,38 @@ def accommodation_category(request, event_slug):
     pass
 
   return render(request, 'events/item_index.html', context_dict)
+
+def add_option(request, event_slug):
+
+  event = Event.objects.get(slug=event_slug)
+  context = RequestContext(request)
+
+  registered = False
+
+  if request.method == 'POST':
+
+      voting_option_form = VotingOptionForm(data=request.POST)
+      if voting_option_form.is_valid():
+
+          option = voting_option_form.save()
+          option.save()
+          event.voting_options.add(option)
+          if category == 'Meal':
+            return redirect('meal_category', event_slug='event.slug')
+          elif category == 'Activity':
+            return redirect('activity_category', event_slug='event.slug')
+          elif category == 'Accommodation':
+            return redirect('accommodation_category', event_slug='event.slug')
+
+          registered = True
+
+      else:
+          print voting_option_form.errors
+
+  else:
+      voting_option_form = VotingOptionForm()
+
+  return render_to_response(
+          'events/create_option.html',
+          {'voting_option_form': voting_option_form, 'event': event, 'registered': registered},
+          context)
