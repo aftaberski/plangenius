@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+def get_path(*args):
+    return os.path.realpath(os.path.join(*args))
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -44,6 +47,7 @@ DJANGO_APPS = (
 THIRD_PARTY_APPS = (
     'django_extensions',
     'filer',
+    'easy_thumbnails',
     'shell_plus',
 )
 
@@ -52,7 +56,11 @@ LOCAL_APPS = (
     'apps.events',
 )
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS +LOCAL_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+MIGRATION_MODULES = {
+    'filer': 'filer.migrations',
+}
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -115,5 +123,21 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-
+LOCAL_SERVE = True
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = get_path(BASE_DIR, "../", '.tmp', 'media')
+STATIC_URL = '/static/'
+STATIC_ROOT = get_path(BASE_DIR, "../", '.tmp', 'static')
+STATICFILES_DIRS = (get_path(BASE_DIR, "../public"),)
+TEMPLATE_DIRS = (get_path(BASE_DIR, "templates"),)
+
+FILER_URL = MEDIA_URL
+FILER_DEBUG = True
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    #'easy_thumbnails.processors.scale_and_crop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters',
+)

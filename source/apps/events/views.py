@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, render
 from apps.events.forms import EventForm
+from .models import Event
 
 
 def index(request):
@@ -23,6 +24,7 @@ def index(request):
 
 
             event.save()
+            event_form.save_m2m()
             return HttpResponseRedirect('/')
 
             registered = True
@@ -37,3 +39,35 @@ def index(request):
             'events/event_form.html',
             {'event_form': event_form, 'registered': registered},
             context)
+
+
+def event_detail(request, event_slug):
+  context_dict = {}
+  try:
+    print "***** made it here *****"
+    event = Event.objects.get(slug=event_slug)
+
+    context_dict['event'] = event
+
+    # Added in order to add page to category
+
+  except Event.DoesNotExist:
+    pass
+
+  return render(request, 'events/event_detail.html', context_dict)
+
+
+def meal_category(request, event_slug):
+  context_dict = {}
+  try:
+    print "***** made it here *****"
+    event = Event.objects.get(slug=event_slug)
+
+    context_dict['event'] = event
+    context_dict['meals'] = event.voting_options.filter(category="Meal")
+    # Added in order to add page to category
+
+  except Event.DoesNotExist:
+    pass
+
+  return render(request, 'events/meal_index.html', context_dict)

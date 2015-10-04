@@ -38,8 +38,6 @@ class Event(models.Model):
 
   def save(self, *args, **kwargs):
     self.slug = slugify(self.title)
-    attendee_list = re.findall(r'[^,;\s]+', self.attendees_text_field)
-    self.attendees.extend(attendee_list)
     super(Event, self).save(*args, **kwargs)
 
   # on save - send email/texts
