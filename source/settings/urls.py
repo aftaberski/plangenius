@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^event/', include(urls)),
     url(r'^sign-up/$', views.sign_up, name='sign-up'),
     url(r'^login/$', views.user_login, name='login'),
+    url(r'^logout/$', views.user_logout, name='logout'),
 ]
 
 # import os

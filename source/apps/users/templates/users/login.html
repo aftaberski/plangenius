@@ -1,13 +1,41 @@
-{% block content %}
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}sass/application.scss">
+  <title>PlanGenius</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript" src="{{STATIC_URL}}javascripts/jquery.touchSwipe.min.js"></script>
+  <script>
+    $(function() {
+      $(".voting-option").swipe( {
+        //Generic swipe handler for all directions
+        swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+          if (direction =="right"){
+            $(this).addClass('yes');
+          }
+          else if (direction=="left"){
+            $(this).addClass('no');
+          }
+        }
+      });
+    });
+  </script>
+</head>
+<body>
 
+<div class="wrap" style="background-image:url('{{ STATIC_URL }}images/plangenius-register-bg.jpg');background-size:cover;">
  <form id="login_form" method="post" action="/login/">
+    <img class="large-logo" src="{{STATIC_URL}}images/logo-icon-large.jpg">
+    <p class="large">DITCH THE DRAMA</p>
+    <p class="small">simplify the complications of planning group events</p>
       {% csrf_token %}
-      Username: <input type="text" name="username" value="" size="50" />
+      <p class="form">Username:</p><input type="text" name="username" value="" size="50" />
       <br />
-      Password: <input type="password" name="password" value="" size="50" />
+      <p class="form">Password</p> <input type="password" name="password" value="" size="50" />
       <br />
 
       <input type="submit" value="submit" />
   </form>
 
-{% endblock content %}
+</div>
+</body>
+</html>
