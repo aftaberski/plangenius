@@ -64,10 +64,41 @@ def meal_category(request, event_slug):
     event = Event.objects.get(slug=event_slug)
 
     context_dict['event'] = event
-    context_dict['meals'] = event.voting_options.filter(category="Meal")
+    context_dict['items'] = event.voting_options.filter(category="Meal")
+    context_dict['type'] = 'Meals'
     # Added in order to add page to category
 
   except Event.DoesNotExist:
     pass
 
-  return render(request, 'events/meal_index.html', context_dict)
+  return render(request, 'events/item_index.html', context_dict)
+
+def activity_category(request, event_slug):
+  context_dict = {}
+  try:
+    event = Event.objects.get(slug=event_slug)
+
+    context_dict['event'] = event
+    context_dict['items'] = event.voting_options.filter(category="Activities")
+    context_dict['type'] = 'Activity'
+    # Added in order to add page to category
+
+  except Event.DoesNotExist:
+    pass
+
+  return render(request, 'events/item_index.html', context_dict)
+
+def accommodation_category(request, event_slug):
+  context_dict = {}
+  try:
+    event = Event.objects.get(slug=event_slug)
+
+    context_dict['event'] = event
+    context_dict['items'] = event.voting_options.filter(category="Accommodation")
+    context_dict['type'] = 'Accommodations'
+    # Added in order to add page to category
+
+  except Event.DoesNotExist:
+    pass
+
+  return render(request, 'events/item_index.html', context_dict)
