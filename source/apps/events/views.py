@@ -79,7 +79,7 @@ def activity_category(request, event_slug):
     event = Event.objects.get(slug=event_slug)
 
     context_dict['event'] = event
-    context_dict['items'] = event.voting_options.filter(category="Activities")
+    context_dict['items'] = event.voting_options.filter(category="Activity")
     context_dict['type'] = 'Activity'
     # Added in order to add page to category
 
@@ -120,7 +120,6 @@ def add_option(request, event_slug):
           category = option.category
           event.voting_options.add(option)
           if category == 'Meal':
-            redirect('meal_category', event_slug='event.slug')
             return redirect('meal_category', event_slug=event.slug)
           elif category == 'Activity':
 
