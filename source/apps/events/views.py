@@ -117,13 +117,16 @@ def add_option(request, event_slug):
 
           option = voting_option_form.save()
           option.save()
+          category = option.category
           event.voting_options.add(option)
           if category == 'Meal':
-            return redirect('meal_category', event_slug='event.slug')
+            redirect('meal_category', event_slug='event.slug')
+            return redirect('meal_category', event_slug=event.slug)
           elif category == 'Activity':
-            return redirect('activity_category', event_slug='event.slug')
+
+            return redirect('activity_category', event_slug=event.slug)
           elif category == 'Accommodation':
-            return redirect('accommodation_category', event_slug='event.slug')
+            return redirect('accommodation_category', event_slug=event.slug)
 
           registered = True
 
