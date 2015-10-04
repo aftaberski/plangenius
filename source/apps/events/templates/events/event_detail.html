@@ -1,4 +1,6 @@
 {% block content %}
   <h1>{{ event.title }}</h1>
-  <a href="{% url 'meal_category' event.slug %}">{{event.slug}}</a>
+  <a href="{% url 'meal_category' event.slug %}">Meals</a>
+  <a href="{% url 'activity_category' event.slug %}">Activities</a>
+  <a href="{% url 'accommodation_category' event.slug %}">Accommodations</a>
 {% endblock content %}
